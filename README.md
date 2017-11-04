@@ -12,3 +12,7 @@ Java HotSpot(TM) 64-Bit Server VM (build 25.152-b16, mixed mode)
 ```
 
 1. In this implementation, the venue is a rectangular grid of seats. The width of the rows are all the same.
+
+## Javadoc
+
+[Javadoc](http://htmlpreview.github.io/?https://github.com/mgove131/TicketServiceChallenge/blob/master/build/docs/javadoc/index.html)
