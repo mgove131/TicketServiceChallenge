@@ -1,7 +1,5 @@
 package main.java.logic;
 
-import main.java.logic.venueproviders.VenueProvider;
-import main.java.logic.venueproviders.VenueProviderDefault;
 import main.java.model.Venue;
 
 /**
@@ -10,14 +8,13 @@ import main.java.model.Venue;
  * @author User
  *
  */
-public class Ticketmaster {
+public final class Ticketmaster {
 
 	/**
 	 * Constructor.
 	 */
 	public Ticketmaster() {
-		VenueProvider vp = new VenueProviderDefault();
-		this.venue = vp.getVenue();
+		this.venue = Factory.getVenue();
 	}
 
 	private Venue venue;

@@ -6,7 +6,7 @@ package main.java.model;
  * @author User
  *
  */
-public class Seat {
+public final class Seat {
 
 	/**
 	 * Constructor.

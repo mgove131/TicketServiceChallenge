@@ -10,7 +10,7 @@ import main.java.model.Venue;
  * @author User
  *
  */
-public class VenueProviderDefault implements VenueProvider {
+public final class VenueProviderDefault implements VenueProvider {
 
 	/**
 	 * Number of rows being used.
