@@ -13,6 +13,7 @@ Java HotSpot(TM) 64-Bit Server VM (build 25.152-b16, mixed mode)
 
 1. In this implementation, the venue is a rectangular grid of seats. The width of the rows are all the same and all of the seats are initially available.
 1. The email address is returned in the SeatHold object. It is assumed that this is okay, even though it could be a security issue.
+1. Null is returned for error conditions for the findAndHoldSeats and reserveSeats methods.
 
 ## Javadoc
 

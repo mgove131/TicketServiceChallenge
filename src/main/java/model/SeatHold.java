@@ -56,6 +56,7 @@ public final class SeatHold {
 		return seats;
 	}
 
+	/*-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -63,7 +64,7 @@ public final class SeatHold {
 		result = prime * result + id;
 		return result;
 	}
-
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -77,5 +78,5 @@ public final class SeatHold {
 			return false;
 		return true;
 	}
-
+	*/
 }

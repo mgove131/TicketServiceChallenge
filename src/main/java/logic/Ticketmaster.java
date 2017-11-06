@@ -5,9 +5,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import main.java.model.Seat;
 import main.java.model.SeatHold;
@@ -25,33 +25,54 @@ import main.java.model.Venue;
  */
 public final class Ticketmaster implements Closeable {
 
-	private static final int EXPIRATION_SECONDS = 5;
+	private static final int DEFAULT_EXPIRATION_SECONDS = 5;
 
-	private static final Ticketmaster INSTANCE = new Ticketmaster();
-
-	public static Ticketmaster getInstance() {
-		return INSTANCE;
-	}
+	private static final Object LOCK = new Object();
 
 	/**
 	 * Constructor.
+	 * 
+	 * @param holdTimeoutSeconds
+	 *            Timeout for holding seats.
 	 */
-	private Ticketmaster() {
+	public Ticketmaster(int holdTimeoutSeconds) {
 		this.isRunning = true;
+		this.holdTimeoutSeconds = holdTimeoutSeconds;
 		this.seatHoldIdCounter = 0;
 		this.venue = Factory.getVenue();
 		this.holds = new HashMap<Integer, SeatHold>();
 		this.reservations = new ArrayList<SeatHold>();
 
-		Thread cleaner = new Thread(new ReservationCleaner());
-		cleaner.start();
+		threadHoldCleaner = new Thread(new ReservationCleaner());
+		threadHoldCleaner.start();
 	}
 
+	/**
+	 * Constructor.
+	 * 
+	 * Uses default timeout.
+	 */
+	public Ticketmaster() {
+		this(DEFAULT_EXPIRATION_SECONDS);
+	}
+
+	private final Thread threadHoldCleaner;
+
 	private volatile boolean isRunning;
+
+	private int holdTimeoutSeconds;
+
+	public int getHoldTimeoutSeconds() {
+		return holdTimeoutSeconds;
+	}
 
 	private int seatHoldIdCounter;
 
 	private Venue venue;
+
+	public Venue getVenue() {
+		return venue;
+	}
 
 	private Map<Integer, SeatHold> holds;
 
@@ -60,11 +81,16 @@ public final class Ticketmaster implements Closeable {
 	@Override
 	public void close() {
 		isRunning = false;
+		try {
+			threadHoldCleaner.join();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 	}
 
 	private Calendar getNextExpirationTime() {
 		Calendar exp = Calendar.getInstance();
-		exp.add(Calendar.SECOND, EXPIRATION_SECONDS);
+		exp.add(Calendar.SECOND, holdTimeoutSeconds);
 		return exp;
 	}
 
@@ -76,7 +102,7 @@ public final class Ticketmaster implements Closeable {
 	public int numSeatsAvailable() {
 		int seatsAvailable = venue.getNumberOfSeats();
 
-		synchronized (INSTANCE) {
+		synchronized (LOCK) {
 			for (SeatHold sh : holds.values()) {
 				seatsAvailable -= sh.getSeats().length;
 			}
@@ -103,7 +129,7 @@ public final class Ticketmaster implements Closeable {
 		// null is returned if there are not enough seats
 		SeatHold seathold = null;
 
-		synchronized (INSTANCE) {
+		synchronized (LOCK) {
 			if (numSeatsAvailable() >= numSeats) {
 				List<Seat> unavailableSeats = new ArrayList<Seat>();
 				for (SeatHold sh : holds.values()) {
@@ -123,7 +149,7 @@ public final class Ticketmaster implements Closeable {
 							Seat s = new Seat(r, c + i);
 
 							if (unavailableSeats.contains(s)) {
-								break outer;
+								continue;
 							} else {
 								seatsToHold.add(s);
 
@@ -163,7 +189,7 @@ public final class Ticketmaster implements Closeable {
 		// null is returned if there is no valid hold
 		String returnValue = null;
 
-		synchronized (INSTANCE) {
+		synchronized (LOCK) {
 			if (holds.containsKey(seatHoldId)) {
 				SeatHold sh = holds.get(seatHoldId);
 
@@ -188,19 +214,19 @@ public final class Ticketmaster implements Closeable {
 		@Override
 		public void run() {
 			while (isRunning) {
-				synchronized (INSTANCE) {
+				synchronized (LOCK) {
 					// use iterator to safely remove items
-					Iterator<SeatHold> it = reservations.iterator();
-					while (it.hasNext()) {
-						SeatHold sh = it.next();
+					Set<Integer> keys = holds.keySet();
+					for (Integer key : keys) {
+						SeatHold sh = holds.get(key);
 						if (sh.isExpired()) {
-							it.remove();
+							holds.remove(key);
 						}
 					}
 				}
 
 				try {
-					Thread.sleep(EXPIRATION_SECONDS * 1000);
+					Thread.sleep(250);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}

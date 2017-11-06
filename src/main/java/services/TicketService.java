@@ -1,5 +1,8 @@
 package main.java.services;
 
+import java.io.Closeable;
+
+import main.java.logic.Ticketmaster;
 import main.java.model.SeatHold;
 
 /**
@@ -8,7 +11,15 @@ import main.java.model.SeatHold;
  * @author User
  *
  */
-public interface TicketService {
+public interface TicketService extends Closeable {
+
+	/**
+	 * Get the backing Ticketmaster.
+	 * 
+	 * @return Ticketmaster
+	 */
+	Ticketmaster getTicketmaster();
+
 	/**
 	 * The number of seats in the venue that are neither held nor reserved
 	 *

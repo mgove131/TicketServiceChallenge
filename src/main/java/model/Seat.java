@@ -34,16 +34,6 @@ public final class Seat {
 		return col;
 	}
 
-	private SeatStatus status;
-
-	public SeatStatus getStatus() {
-		return status;
-	}
-
-	public void setStatus(SeatStatus status) {
-		this.status = status;
-	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;

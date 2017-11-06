@@ -1,5 +1,7 @@
 package main.java.services;
 
+import java.io.IOException;
+
 import main.java.logic.Ticketmaster;
 import main.java.model.SeatHold;
 
@@ -13,12 +15,26 @@ public final class TicketServiceImpl implements TicketService {
 
 	/**
 	 * Constructor.
+	 * 
+	 * @param holdTimeoutSeconds
+	 *            Timeout for holding seats.
+	 */
+	public TicketServiceImpl(int holdTimeoutSeconds) {
+		this.ticketmaster = new Ticketmaster(holdTimeoutSeconds);
+	}
+
+	/**
+	 * Constructor.
 	 */
 	public TicketServiceImpl() {
-		this.ticketmaster = Ticketmaster.getInstance();
+		this.ticketmaster = new Ticketmaster();
 	}
 
 	private Ticketmaster ticketmaster;
+
+	public Ticketmaster getTicketmaster() {
+		return ticketmaster;
+	}
 
 	@Override
 	public int numSeatsAvailable() {
@@ -35,4 +51,8 @@ public final class TicketServiceImpl implements TicketService {
 		return ticketmaster.reserveSeats(seatHoldId, customerEmail);
 	}
 
+	@Override
+	public void close() throws IOException {
+		ticketmaster.close();
+	}
 }

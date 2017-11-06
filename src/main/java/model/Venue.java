@@ -1,7 +1,7 @@
 package main.java.model;
 
 /**
- * A venue is a collection of {@link Seat}s.
+ * A venue represents rows of seats.
  * 
  * @author User
  *
@@ -19,7 +19,6 @@ public final class Venue {
 	public Venue(int rowCount, int colCount) {
 		this.rowCount = rowCount;
 		this.colCount = colCount;
-		this.seats = new Seat[rowCount][colCount];
 	}
 
 	/**
@@ -41,27 +40,5 @@ public final class Venue {
 
 	public int getColCount() {
 		return colCount;
-	}
-
-	private Seat[][] seats;
-
-	public Seat[][] getSeats() {
-		return seats;
-	}
-
-	/**
-	 * Get seat at (row, col).
-	 * 
-	 * @param row
-	 *            row index
-	 * @param col
-	 *            seat index
-	 * @return Seat at (row, col). (@code null} if out of bounds.
-	 */
-	public Seat getSeat(int row, int col) {
-		if ((seats == null) || (row < 0) || (col < 0) || (row > seats.length) || (col > seats[row].length)) {
-			return null;
-		}
-		return seats[row][col];
 	}
 }
