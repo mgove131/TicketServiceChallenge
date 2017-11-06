@@ -1,6 +1,7 @@
 package main.java.services;
 
-import main.java.logic.SeatHold;
+import main.java.logic.Ticketmaster;
+import main.java.model.SeatHold;
 
 /**
  * TicketService implemented.
@@ -10,22 +11,28 @@ import main.java.logic.SeatHold;
  */
 public final class TicketServiceImpl implements TicketService {
 
+	/**
+	 * Constructor.
+	 */
+	public TicketServiceImpl() {
+		this.ticketmaster = Ticketmaster.getInstance();
+	}
+
+	private Ticketmaster ticketmaster;
+
 	@Override
 	public int numSeatsAvailable() {
-		// TODO Auto-generated method stub
-		return 0;
+		return ticketmaster.numSeatsAvailable();
 	}
 
 	@Override
 	public SeatHold findAndHoldSeats(int numSeats, String customerEmail) {
-		// TODO Auto-generated method stub
-		return null;
+		return ticketmaster.findAndHoldSeats(numSeats, customerEmail);
 	}
 
 	@Override
 	public String reserveSeats(int seatHoldId, String customerEmail) {
-		// TODO Auto-generated method stub
-		return null;
+		return ticketmaster.reserveSeats(seatHoldId, customerEmail);
 	}
 
 }

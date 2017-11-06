@@ -17,7 +17,30 @@ public final class Venue {
 	 *            Number of seats per row.
 	 */
 	public Venue(int rowCount, int colCount) {
+		this.rowCount = rowCount;
+		this.colCount = colCount;
 		this.seats = new Seat[rowCount][colCount];
+	}
+
+	/**
+	 * Get total number of seats;
+	 * 
+	 * @return total number of seats;
+	 */
+	public int getNumberOfSeats() {
+		return rowCount * colCount;
+	}
+
+	private int rowCount;
+
+	public int getRowCount() {
+		return rowCount;
+	}
+
+	private int colCount;
+
+	public int getColCount() {
+		return colCount;
 	}
 
 	private Seat[][] seats;

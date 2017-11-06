@@ -15,6 +15,11 @@ public final class Factory {
 		// shouldn't be able to create an instance
 	}
 
+	/**
+	 * Used to get the Venue.
+	 * 
+	 * @return a Venue.
+	 */
 	public static Venue getVenue() {
 		VenueProvider vp = new VenueProviderDefault();
 		return vp.getVenue();

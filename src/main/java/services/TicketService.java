@@ -1,6 +1,6 @@
 package main.java.services;
 
-import main.java.logic.SeatHold;
+import main.java.model.SeatHold;
 
 /**
  * TicketService interface.
