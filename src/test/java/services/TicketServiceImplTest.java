@@ -95,6 +95,22 @@ public class TicketServiceImplTest {
 	}
 
 	@Test
+	public void testFindAndHoldSeatsMaxedOut() {
+		// when all seats are reserved, shouldn't be able to get a seat
+
+		TicketService service = serviceVeryLongHold;
+
+		String email = "fake@fake.com";
+		while (service.numSeatsAvailable() > 0) {
+			service.findAndHoldSeats(1, email);
+		}
+
+		SeatHold sh = service.findAndHoldSeats(1, email);
+
+		Assert.assertNull(sh);
+	}
+
+	@Test
 	public void testFindAndHoldSeatsExpire() {
 		// test that holding seats will expire
 
@@ -153,5 +169,51 @@ public class TicketServiceImplTest {
 		int expected = service.getTicketmaster().getVenue().getNumberOfSeats() - seatsToHold;
 		int actual = service.numSeatsAvailable();
 		Assert.assertEquals(expected, actual);
+	}
+
+	@Test
+	public void testReserveSeatsAll() {
+		// make sure all seats can be reserved
+		// also tests alternating holding and reserving
+
+		TicketService service = serviceLongHold;
+
+		int seatsToHold = 1;
+		String email = "fake@fake.com";
+		while (service.numSeatsAvailable() > 0) {
+			SeatHold sh = service.findAndHoldSeats(seatsToHold, email);
+			service.reserveSeats(sh.getId(), email);
+		}
+
+		int expected = 0;
+		int actual = service.numSeatsAvailable();
+		Assert.assertEquals(expected, actual);
+	}
+
+	@Test
+	public void testReserveSeatsInvalidEmail() {
+		// can't reserve with an invalid email
+
+		TicketService service = serviceShortHold;
+
+		int seatsToHold = 3;
+		String email = "fake@fake.com";
+		String emailInvalid = "invalid@fake.com";
+		SeatHold sh = service.findAndHoldSeats(seatsToHold, email);
+		String confirmationCode = service.reserveSeats(sh.getId(), emailInvalid);
+
+		Assert.assertNull(confirmationCode);
+	}
+
+	@Test
+	public void testReserveSeatsInvalidId() {
+		// can't reserve with an invalid id
+
+		TicketService service = serviceDefaultHold;
+
+		String email = "fake@fake.com";
+		String confirmationCode = service.reserveSeats(1, email);
+
+		Assert.assertNull(confirmationCode);
 	}
 }
