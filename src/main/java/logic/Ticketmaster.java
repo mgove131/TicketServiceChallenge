@@ -4,6 +4,7 @@ import java.io.Closeable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -130,7 +131,7 @@ public final class Ticketmaster implements Closeable {
 		SeatHold seathold = null;
 
 		synchronized (LOCK) {
-			if (numSeatsAvailable() >= numSeats) {
+			if ((numSeats > 0) && (numSeatsAvailable() >= numSeats)) {
 				List<Seat> unavailableSeats = new ArrayList<Seat>();
 				for (SeatHold sh : holds.values()) {
 					unavailableSeats.addAll(Arrays.asList(sh.getSeats()));
@@ -140,26 +141,52 @@ public final class Ticketmaster implements Closeable {
 				}
 
 				List<Seat> seatsToHold = new ArrayList<Seat>();
-				outer: for (int r = 0; r < venue.getRowCount(); r++) {
-					for (int c = 0; c <= (venue.getColCount() - numSeats); c++) {
-						seatsToHold.clear();
+				final int numRows = venue.getRowCount();
+				final int seatsInARow = venue.getColCount();
+				int searchSize = (numSeats < seatsInARow) ? numSeats : seatsInARow;
+				outerLoop: while (searchSize > 0) {
 
-						// check to see if all the seats are available
-						for (int i = 0; i <= numSeats; i++) {
-							Seat s = new Seat(r, c + i);
+					rowLoop: for (int r = 0; r < numRows; r++) {
+						colLoop: for (int c = 0; c < seatsInARow; c++) {
 
-							if (unavailableSeats.contains(s)) {
-								continue;
-							} else {
-								seatsToHold.add(s);
+							if ((c + searchSize) > seatsInARow) {
+								break colLoop;
+							}
 
-								// if we filled up all the seats
+							List<Seat> candidateSeats = new ArrayList<Seat>();
+							for (int i = 0; i < searchSize; i++) {
+								final int seatInd = c + i;
+								Seat candidateSeat = new Seat(r, seatInd);
+								candidateSeats.add(candidateSeat);
+							}
+
+							// make sure candidate seats are available
+							if ((Collections.disjoint(candidateSeats, seatsToHold))
+									&& (Collections.disjoint(candidateSeats, unavailableSeats))) {
+
+								// can hold these seats
+								seatsToHold.addAll(candidateSeats);
+								// if all seats are found, stop looking
 								if (seatsToHold.size() == numSeats) {
-									break outer;
+									break outerLoop;
+								}
+
+								// can skip ahead
+								c = c + searchSize - 1;
+
+								// make sure we are looking for the right size
+								int seatsLeftToFind = numSeats - seatsToHold.size();
+								if (seatsLeftToFind < searchSize) {
+									// +1 because it is going to decrement before looping
+									searchSize = seatsLeftToFind + 1;
+									// start from the first row with the new size
+									break rowLoop;
 								}
 							}
 						}
 					}
+
+					searchSize--;
 				}
 
 				if (seatsToHold.size() == numSeats) {
