@@ -1,7 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="test.java.services.TicketServiceImplTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2017-11-06T17:01:28" hostname="LAPTOP-7CDTL9J3" time="0.004">
+<testsuite name="test.java.services.TicketServiceImplTest" tests="11" skipped="0" failures="0" errors="0" timestamp="2017-11-06T21:59:55" hostname="LAPTOP-7CDTL9J3" time="8.075">
   <properties/>
-  <testcase name="testNumSeatsAvailable" classname="test.java.services.TicketServiceImplTest" time="0.004"/>
+  <testcase name="testNumSeatsAvailableAllAvailable" classname="test.java.services.TicketServiceImplTest" time="0.521"/>
+  <testcase name="testReserveSeatsInvalidId" classname="test.java.services.TicketServiceImplTest" time="0.254"/>
+  <testcase name="testReserveSeatsAll" classname="test.java.services.TicketServiceImplTest" time="0.515"/>
+  <testcase name="testFindAndHoldSeatsAll" classname="test.java.services.TicketServiceImplTest" time="0.51"/>
+  <testcase name="testFindAndHoldSeatsSome" classname="test.java.services.TicketServiceImplTest" time="0.504"/>
+  <testcase name="testReserveSeats" classname="test.java.services.TicketServiceImplTest" time="0.001"/>
+  <testcase name="testReserveSeatsDontExpire" classname="test.java.services.TicketServiceImplTest" time="2.506"/>
+  <testcase name="testReserveSeatsInvalidEmail" classname="test.java.services.TicketServiceImplTest" time="0.001"/>
+  <testcase name="testTearDownInternal" classname="test.java.services.TicketServiceImplTest" time="0.001"/>
+  <testcase name="testFindAndHoldSeatsExpire" classname="test.java.services.TicketServiceImplTest" time="2.504"/>
+  <testcase name="testFindAndHoldSeatsMaxedOut" classname="test.java.services.TicketServiceImplTest" time="0.754"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
