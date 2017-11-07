@@ -44,7 +44,7 @@ public class TicketServiceImplTest {
 	}
 
 	@Test
-	public void testTearDownInternal() {
+	public void _testTearDown() {
 		// covers the null checks in tearDown
 
 		serviceShortHold = null;
