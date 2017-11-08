@@ -28,8 +28,6 @@ public final class Ticketmaster implements Closeable {
 
 	private static final int DEFAULT_EXPIRATION_SECONDS = 5;
 
-	private static final Object LOCK = new Object();
-
 	/**
 	 * Constructor.
 	 * 
@@ -56,6 +54,8 @@ public final class Ticketmaster implements Closeable {
 	public Ticketmaster() {
 		this(DEFAULT_EXPIRATION_SECONDS);
 	}
+
+	private final Object lock = new Object();
 
 	private final Thread threadHoldCleaner;
 
@@ -85,7 +85,6 @@ public final class Ticketmaster implements Closeable {
 		try {
 			threadHoldCleaner.join();
 		} catch (InterruptedException e) {
-			e.printStackTrace();
 		}
 	}
 
@@ -103,7 +102,7 @@ public final class Ticketmaster implements Closeable {
 	public int numSeatsAvailable() {
 		int seatsAvailable = venue.getNumberOfSeats();
 
-		synchronized (LOCK) {
+		synchronized (lock) {
 			for (SeatHold sh : holds.values()) {
 				seatsAvailable -= sh.getSeats().length;
 			}
@@ -130,7 +129,7 @@ public final class Ticketmaster implements Closeable {
 		// null is returned if there are not enough seats
 		SeatHold seathold = null;
 
-		synchronized (LOCK) {
+		synchronized (lock) {
 			if ((numSeats > 0) && (numSeatsAvailable() >= numSeats)) {
 				List<Seat> unavailableSeats = new ArrayList<Seat>();
 				for (SeatHold sh : holds.values()) {
@@ -216,7 +215,7 @@ public final class Ticketmaster implements Closeable {
 		// null is returned if there is no valid hold
 		String returnValue = null;
 
-		synchronized (LOCK) {
+		synchronized (lock) {
 			if (holds.containsKey(seatHoldId)) {
 				SeatHold sh = holds.get(seatHoldId);
 
@@ -241,7 +240,7 @@ public final class Ticketmaster implements Closeable {
 		@Override
 		public void run() {
 			while (isRunning) {
-				synchronized (LOCK) {
+				synchronized (lock) {
 					// use iterator to safely remove items
 					Set<Integer> keys = holds.keySet();
 					for (Integer key : keys) {
@@ -255,7 +254,6 @@ public final class Ticketmaster implements Closeable {
 				try {
 					Thread.sleep(250);
 				} catch (InterruptedException e) {
-					e.printStackTrace();
 				}
 			}
 		}

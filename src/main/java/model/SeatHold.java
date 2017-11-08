@@ -29,7 +29,7 @@ public final class SeatHold {
 	 * @return True if the current time is after the expiration.
 	 */
 	public boolean isExpired() {
-		return Calendar.getInstance().after(getExpireDate());
+		return Calendar.getInstance().after(expireDate);
 	}
 
 	private int id;
@@ -54,5 +54,27 @@ public final class SeatHold {
 
 	public Seat[] getSeats() {
 		return seats;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + id;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		SeatHold other = (SeatHold) obj;
+		if (id != other.id)
+			return false;
+		return true;
 	}
 }

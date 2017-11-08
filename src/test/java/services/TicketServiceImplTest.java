@@ -195,6 +195,21 @@ public class TicketServiceImplTest {
 	}
 
 	@Test
+	public void testFindAndHoldSeatNone() {
+		// shouldn't be able to no or negative seats
+
+		TicketService service = serviceLongHold;
+
+		SeatHold sh;
+
+		sh = holdSeats(service, 0);
+		Assert.assertNull(sh);
+
+		sh = holdSeats(service, -1);
+		Assert.assertNull(sh);
+	}
+
+	@Test
 	public void testFindAndHoldSeatTooLarge() {
 		// shouldn't be able to reserve more seats than the venue
 
