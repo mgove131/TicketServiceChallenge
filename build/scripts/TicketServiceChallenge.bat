@@ -63,10 +63,10 @@ set CMD_LINE_ARGS=%*
 :execute
 @rem Setup the command line
 
-set CLASSPATH=%APP_HOME%\lib\HelloWorld-1.0.0.jar;%APP_HOME%\lib\slf4j-api-1.7.22.jar
+set CLASSPATH=%APP_HOME%\lib\TicketServiceUI-1.0.0.jar;%APP_HOME%\lib\slf4j-api-1.7.22.jar
 
 @rem Execute TicketServiceChallenge
-"%JAVA_EXE%" %DEFAULT_JVM_OPTS% %JAVA_OPTS% %TICKET_SERVICE_CHALLENGE_OPTS%  -classpath "%CLASSPATH%" main.java.hello.HelloWorld %CMD_LINE_ARGS%
+"%JAVA_EXE%" %DEFAULT_JVM_OPTS% %JAVA_OPTS% %TICKET_SERVICE_CHALLENGE_OPTS%  -classpath "%CLASSPATH%" main.java.ui.TicketServiceUI %CMD_LINE_ARGS%
 
 :end
 @rem End local scope for the variables with windows NT shell
