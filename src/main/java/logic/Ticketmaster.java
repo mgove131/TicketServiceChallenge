@@ -6,9 +6,10 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
+import java.util.Map.Entry;
 
 import main.java.model.Seat;
 import main.java.model.SeatHold;
@@ -241,12 +242,12 @@ public final class Ticketmaster implements Closeable {
 		public void run() {
 			while (isRunning) {
 				synchronized (lock) {
-					// use iterator to safely remove items
-					Set<Integer> keys = holds.keySet();
-					for (Integer key : keys) {
-						SeatHold sh = holds.get(key);
+					Iterator<Entry<Integer, SeatHold>> it = holds.entrySet().iterator();
+					while (it.hasNext()) {
+						Map.Entry<Integer, SeatHold> pair = it.next();
+						SeatHold sh = pair.getValue();
 						if (sh.isExpired()) {
-							holds.remove(key);
+							it.remove(); // avoids a ConcurrentModificationException
 						}
 					}
 				}
