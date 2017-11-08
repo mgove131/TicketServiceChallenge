@@ -7,7 +7,7 @@ Provides a service that allows seats of a venue to be held and then reserved. Th
 ## Instructions
 
 1. Open the command line and navigate to the root folder of the project.
-    * See: (TicketService.java)[src/main/java/services/TicketService.java]
+    * See: [TicketService.java](src/main/java/services/TicketService.java)
 
 ### Build and run tests
 
