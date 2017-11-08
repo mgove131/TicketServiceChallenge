@@ -6,7 +6,7 @@ import org.junit.Test;
 
 import main.java.model.Seat;
 
-public class SeatTest {
+public final class SeatTest {
 
 	private static Seat same1;
 	private static Seat same2;
@@ -51,5 +51,4 @@ public class SeatTest {
 		Assert.assertEquals(same1.toString(), same2.toString());
 		Assert.assertNotEquals(same1.toString(), different.toString());
 	}
-
 }

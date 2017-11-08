@@ -24,6 +24,15 @@ gradlew clean
 gradlew test
 ```
 
+### Run UI
+
+```
+gradlew clean
+gradlew build
+gradlew run
+```
+
+
 ## Assumptions
 
 ```

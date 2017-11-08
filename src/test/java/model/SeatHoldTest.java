@@ -9,7 +9,7 @@ import org.junit.Test;
 import main.java.model.Seat;
 import main.java.model.SeatHold;
 
-public class SeatHoldTest {
+public final class SeatHoldTest {
 
 	private static SeatHold same1;
 	private static SeatHold same2;
@@ -19,7 +19,9 @@ public class SeatHoldTest {
 	public static void setUpBeforeClass() throws Exception {
 		same1 = new SeatHold(0, "0", Calendar.getInstance(), new Seat[0]);
 		same2 = new SeatHold(same1.getId(), same1.getEmail(), same1.getExpireDate(), same1.getSeats());
-		different = new SeatHold(1, "1", Calendar.getInstance(), new Seat[0]);
+		Calendar differentCalendar = Calendar.getInstance();
+		differentCalendar.add(Calendar.MINUTE, 1);
+		different = new SeatHold(1, "1", differentCalendar, new Seat[0]);
 	}
 
 	@Test
@@ -59,5 +61,11 @@ public class SeatHoldTest {
 		Assert.assertNotEquals(same1, different);
 		Assert.assertNotEquals(same1, null);
 		Assert.assertNotEquals(same1, new Object());
+	}
+
+	@Test
+	public void testToString() {
+		Assert.assertEquals(same1.toString(), same2.toString());
+		Assert.assertNotEquals(same1.toString(), different.toString());
 	}
 }

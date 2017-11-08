@@ -11,7 +11,7 @@ import test.java.services.TicketServiceImplTest;
 
 @RunWith(Suite.class)
 @SuiteClasses({ SeatHoldTest.class, SeatTest.class, TicketServiceImplTest.class })
-public class AllTests {
+public final class AllTests {
 	@BeforeClass
 	public static void setUpBeforeClass() {
 		// only for code coverage

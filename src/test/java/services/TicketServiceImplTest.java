@@ -15,7 +15,7 @@ import main.java.model.SeatHold;
 import main.java.services.TicketService;
 import main.java.services.TicketServiceImpl;
 
-public class TicketServiceImplTest {
+public final class TicketServiceImplTest {
 
 	private TicketService serviceShortHold;
 	private TicketService serviceDefaultHold;
