@@ -9,7 +9,6 @@
 ```
 gradlew clean
 gradlew build
-
 ```
 
 ### Run tests only
