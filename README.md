@@ -4,10 +4,11 @@
 
 Provides a service that allows seats of a venue to be held and then reserved. The hold on the seats will expire after some time if they are not changed to reservations.
 
+See: [TicketService.java](src/main/java/services/TicketService.java)
+
 ## Instructions
 
 1. Open the command line and navigate to the root folder of the project.
-    * See: [TicketService.java](src/main/java/services/TicketService.java)
 
 ### Build and run tests
 
