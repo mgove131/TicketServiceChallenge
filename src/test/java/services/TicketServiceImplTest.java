@@ -2,6 +2,7 @@ package test.java.services;
 
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.Random;
 import java.util.Set;
 
 import org.junit.After;
@@ -297,6 +298,39 @@ public class TicketServiceImplTest {
 		String confirmationCode = reserveSeats(service, 1);
 
 		Assert.assertNull(confirmationCode);
+	}
+
+	private void testReserveSeatsRandomFill() {
+		// randomly fill all seats
+
+		TicketService service = serviceLongHold;
+
+		Random r = new Random();
+		int availableSeats = service.numSeatsAvailable();
+		while (availableSeats > 0) {
+			int seatsToHold = r.nextInt(availableSeats) + 1;
+			holdAndReserveSeats(service, seatsToHold);
+			availableSeats = service.numSeatsAvailable();
+		}
+
+		int expected = 0;
+		int actual = service.numSeatsAvailable();
+		Assert.assertEquals(expected, actual);
+	}
+
+	@Test
+	public void testReserveSeatsRandomFill1() {
+		testReserveSeatsRandomFill();
+	}
+
+	@Test
+	public void testReserveSeatsRandomFill2() {
+		testReserveSeatsRandomFill();
+	}
+
+	@Test
+	public void testReserveSeatsRandomFill3() {
+		testReserveSeatsRandomFill();
 	}
 
 	private static int holdAndReserveAsMuchAsPossible(TicketService service, int seatsToHoldIncrement) {
