@@ -123,7 +123,7 @@ public final class Ticketmaster implements Closeable {
 	 * @param customerEmail
 	 *            unique identifier for the customer
 	 * @return a SeatHold object identifying the specific seats and related
-	 *         information
+	 *         information. Null in error conditions.
 	 */
 	public SeatHold findAndHoldSeats(int numSeats, String customerEmail) {
 		// null is returned if there are not enough seats
@@ -209,7 +209,7 @@ public final class Ticketmaster implements Closeable {
 	 * @param customerEmail
 	 *            the email address of the customer to which the seat hold is
 	 *            assigned
-	 * @return a reservation confirmation code
+	 * @return a reservation confirmation code. Null in error conditions.
 	 */
 	public String reserveSeats(int seatHoldId, String customerEmail) {
 		// null is returned if there is no valid hold
