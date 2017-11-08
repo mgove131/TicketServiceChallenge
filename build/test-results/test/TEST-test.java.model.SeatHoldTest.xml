@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="test.java.model.SeatHoldTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2017-11-08T02:21:39" hostname="LAPTOP-7CDTL9J3" time="0.005">
+<testsuite name="test.java.model.SeatHoldTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2017-11-08T02:38:03" hostname="LAPTOP-7CDTL9J3" time="0.004">
   <properties/>
   <testcase name="testGetEmail" classname="test.java.model.SeatHoldTest" time="0.001"/>
-  <testcase name="testGetSeats" classname="test.java.model.SeatHoldTest" time="0.002"/>
+  <testcase name="testGetSeats" classname="test.java.model.SeatHoldTest" time="0.001"/>
   <testcase name="testGetId" classname="test.java.model.SeatHoldTest" time="0.0"/>
-  <testcase name="testEqualsObject" classname="test.java.model.SeatHoldTest" time="0.0"/>
+  <testcase name="testEqualsObject" classname="test.java.model.SeatHoldTest" time="0.001"/>
   <testcase name="testGetExpireDate" classname="test.java.model.SeatHoldTest" time="0.0"/>
   <testcase name="testHashCode" classname="test.java.model.SeatHoldTest" time="0.0"/>
   <system-out><![CDATA[]]></system-out>

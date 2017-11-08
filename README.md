@@ -2,14 +2,21 @@
 
 ## Instructions
 
+1. Open the command line and navigate to the root folder of the project
+
 ### Build and run tests
 
 ```
+gradlew clean
+gradlew build
+
 ```
 
-### Run tests
+### Run tests only
 
 ```
+gradlew clean
+gradlew test
 ```
 
 ## Assumptions

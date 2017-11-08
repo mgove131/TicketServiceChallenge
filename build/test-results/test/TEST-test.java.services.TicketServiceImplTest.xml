@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="test.java.services.TicketServiceImplTest" tests="18" skipped="0" failures="0" errors="0" timestamp="2017-11-08T02:21:39" hostname="LAPTOP-7CDTL9J3" time="14.082">
+<testsuite name="test.java.services.TicketServiceImplTest" tests="18" skipped="0" failures="0" errors="0" timestamp="2017-11-08T02:38:03" hostname="LAPTOP-7CDTL9J3" time="14.096">
   <properties/>
-  <testcase name="testReserveSeatsLargerThanColSize" classname="test.java.services.TicketServiceImplTest" time="0.764"/>
-  <testcase name="testNumSeatsAvailableAllAvailable" classname="test.java.services.TicketServiceImplTest" time="0.751"/>
-  <testcase name="testReserveSeatsInvalidId" classname="test.java.services.TicketServiceImplTest" time="0.501"/>
-  <testcase name="testReserveSeatsAll" classname="test.java.services.TicketServiceImplTest" time="0.755"/>
-  <testcase name="testFindAndHoldSeatNone" classname="test.java.services.TicketServiceImplTest" time="0.252"/>
-  <testcase name="testFindAndHoldSeatsAll" classname="test.java.services.TicketServiceImplTest" time="0.504"/>
-  <testcase name="testFindAndHoldSeatsSome" classname="test.java.services.TicketServiceImplTest" time="0.252"/>
-  <testcase name="testReserveSeats" classname="test.java.services.TicketServiceImplTest" time="0.004"/>
-  <testcase name="testReserveSeatsDontExpire" classname="test.java.services.TicketServiceImplTest" time="2.258"/>
-  <testcase name="testReserveSeatsRandomFill1" classname="test.java.services.TicketServiceImplTest" time="1.002"/>
-  <testcase name="testReserveSeatsRandomFill2" classname="test.java.services.TicketServiceImplTest" time="0.504"/>
+  <testcase name="testReserveSeatsLargerThanColSize" classname="test.java.services.TicketServiceImplTest" time="1.007"/>
+  <testcase name="testNumSeatsAvailableAllAvailable" classname="test.java.services.TicketServiceImplTest" time="0.754"/>
+  <testcase name="testReserveSeatsInvalidId" classname="test.java.services.TicketServiceImplTest" time="0.0"/>
+  <testcase name="testReserveSeatsAll" classname="test.java.services.TicketServiceImplTest" time="0.753"/>
+  <testcase name="testFindAndHoldSeatNone" classname="test.java.services.TicketServiceImplTest" time="0.752"/>
+  <testcase name="testFindAndHoldSeatsAll" classname="test.java.services.TicketServiceImplTest" time="0.757"/>
+  <testcase name="testFindAndHoldSeatsSome" classname="test.java.services.TicketServiceImplTest" time="1.004"/>
+  <testcase name="testReserveSeats" classname="test.java.services.TicketServiceImplTest" time="0.251"/>
+  <testcase name="testReserveSeatsDontExpire" classname="test.java.services.TicketServiceImplTest" time="2.757"/>
+  <testcase name="testReserveSeatsRandomFill1" classname="test.java.services.TicketServiceImplTest" time="0.254"/>
+  <testcase name="testReserveSeatsRandomFill2" classname="test.java.services.TicketServiceImplTest" time="0.754"/>
   <testcase name="testReserveSeatsRandomFill3" classname="test.java.services.TicketServiceImplTest" time="0.755"/>
-  <testcase name="testReserveSeatsInvalidEmail" classname="test.java.services.TicketServiceImplTest" time="0.259"/>
-  <testcase name="_testTearDown" classname="test.java.services.TicketServiceImplTest" time="0.0"/>
-  <testcase name="testFindAndHoldSeatsExpire" classname="test.java.services.TicketServiceImplTest" time="2.759"/>
-  <testcase name="testFindAndHoldSeatsMaxedOut" classname="test.java.services.TicketServiceImplTest" time="1.003"/>
-  <testcase name="testReserveSeatsHalfCol" classname="test.java.services.TicketServiceImplTest" time="1.002"/>
-  <testcase name="testFindAndHoldSeatTooLarge" classname="test.java.services.TicketServiceImplTest" time="0.754"/>
+  <testcase name="testReserveSeatsInvalidEmail" classname="test.java.services.TicketServiceImplTest" time="0.005"/>
+  <testcase name="_testTearDown" classname="test.java.services.TicketServiceImplTest" time="0.001"/>
+  <testcase name="testFindAndHoldSeatsExpire" classname="test.java.services.TicketServiceImplTest" time="2.757"/>
+  <testcase name="testFindAndHoldSeatsMaxedOut" classname="test.java.services.TicketServiceImplTest" time="0.754"/>
+  <testcase name="testReserveSeatsHalfCol" classname="test.java.services.TicketServiceImplTest" time="0.767"/>
+  <testcase name="testFindAndHoldSeatTooLarge" classname="test.java.services.TicketServiceImplTest" time="0.004"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
