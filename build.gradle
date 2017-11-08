@@ -11,17 +11,17 @@ apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'application'
 
-mainClassName = 'main.java.hello.HelloWorld'
+mainClassName = 'main.java.ui.TicketServiceUI'
 
 repositories {
     jcenter()
 }
 
 jar {
-    baseName = 'HelloWorld'
+    baseName = 'TicketServiceUI'
     version =  '1.0.0'
     manifest {
-        attributes 'Main-Class': 'main.java.hello.HelloWorld'
+        attributes 'Main-Class': 'main.java.ui.TicketServiceUI'
     }
 }
 
