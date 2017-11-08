@@ -2,6 +2,16 @@
 
 ## Instructions
 
+### Build and run tests
+
+```
+```
+
+### Run tests
+
+```
+```
+
 ## Assumptions
 
 ```
