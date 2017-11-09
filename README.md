@@ -13,23 +13,23 @@ See: [TicketService.java](src/main/java/services/TicketService.java)
 ### Build and run tests
 
 ```
-gradlew clean
-gradlew build
+.\gradlew clean
+.\gradlew build
 ```
 
 ### Run tests only
 
 ```
-gradlew clean
-gradlew test
+.\gradlew clean
+.\gradlew test
 ```
 
 ### Run UI - Gradle
 
 ```
-gradlew clean
-gradlew build
-gradlew run
+.\gradlew clean
+.\gradlew build
+.\gradlew run
 ```
 
 ### Run UI - Batch file
