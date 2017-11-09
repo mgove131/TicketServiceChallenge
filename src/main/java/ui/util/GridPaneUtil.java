@@ -32,7 +32,7 @@ public final class GridPaneUtil {
 	 *            array
 	 */
 	public static void addColumnConstraints(GridPane pane, Priority[] priorites) {
-		if (priorites == null) {
+		if ((pane == null) || (priorites == null)) {
 			return;
 		}
 
@@ -53,7 +53,7 @@ public final class GridPaneUtil {
 	 *            array
 	 */
 	public static void addRowConstraints(GridPane pane, Priority[] priorites) {
-		if (priorites == null) {
+		if ((pane == null) || (priorites == null)) {
 			return;
 		}
 

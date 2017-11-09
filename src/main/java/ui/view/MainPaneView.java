@@ -103,6 +103,10 @@ public final class MainPaneView {
 
 	private MainPaneViewModel viewModel;
 
+	public MainPaneViewModel getViewModel() {
+		return viewModel;
+	}
+
 	private Pane root;
 
 	public Pane getRoot() {

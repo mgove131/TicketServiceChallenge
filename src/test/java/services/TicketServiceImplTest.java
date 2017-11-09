@@ -263,8 +263,9 @@ public final class TicketServiceImplTest {
 		TicketService service = serviceLongHold;
 
 		int seatsToHold = service.getTicketmaster().getVenue().getColCount() - 1;
-		SeatHold sh = holdSeats(service, seatsToHold);
-		String confirmationCode = reserveSeats(service, sh.getId());
+		String email = null;
+		SeatHold sh = holdSeats(service, seatsToHold, email);
+		String confirmationCode = reserveSeats(service, sh.getId(), email);
 
 		int expected = service.getTicketmaster().getVenue().getNumberOfSeats() - seatsToHold;
 		int actual = service.numSeatsAvailable();

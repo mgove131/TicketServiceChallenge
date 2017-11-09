@@ -34,7 +34,6 @@ public final class MainPaneViewModel implements Closeable {
 	@Override
 	public void close() throws IOException {
 		this.ticketMaster.close();
-
 	}
 
 	private Ticketmaster ticketMaster;
@@ -95,7 +94,7 @@ public final class MainPaneViewModel implements Closeable {
 
 	private SeatHold currentSeatHold;
 
-	private SeatHold getCurrentSeatHold() {
+	public SeatHold getCurrentSeatHold() {
 		return currentSeatHold;
 	}
 

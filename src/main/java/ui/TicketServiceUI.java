@@ -1,11 +1,12 @@
 package main.java.ui;
 
-import java.io.IOException;
+import java.util.List;
 
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import main.java.ui.view.MainPaneView;
 import main.java.ui.viewmodel.MainPaneViewModel;
 
@@ -16,17 +17,21 @@ import main.java.ui.viewmodel.MainPaneViewModel;
  *
  */
 public final class TicketServiceUI extends Application {
+
+	private MainPaneView mainV;
+	private Stage primaryStage;
+
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		final MainPaneViewModel mainVM = new MainPaneViewModel();
-		final MainPaneView mainV = new MainPaneView(mainVM);
+		this.primaryStage = primaryStage;
+		this.mainV = new MainPaneView(new MainPaneViewModel());
 
 		Scene scene = new Scene(mainV.getRoot(), 600, 300);
 		primaryStage.setTitle("TicketServiceUI");
 		primaryStage.setOnCloseRequest((e) -> {
 			try {
-				mainVM.close();
-			} catch (IOException e1) {
+				this.mainV.getViewModel().close();
+			} catch (Exception e1) {
 			}
 
 			Platform.exit();
@@ -34,6 +39,18 @@ public final class TicketServiceUI extends Application {
 		});
 		primaryStage.setScene(scene);
 		primaryStage.show();
+
+		List<String> paramsList = getParameters().getRaw();
+		if (paramsList.contains("close")) {
+			close();
+		}
+	}
+
+	/**
+	 * Request the application to close.
+	 */
+	public void close() {
+		primaryStage.fireEvent(new WindowEvent(primaryStage, WindowEvent.WINDOW_CLOSE_REQUEST));
 	}
 
 	public static void main(String args[]) {
