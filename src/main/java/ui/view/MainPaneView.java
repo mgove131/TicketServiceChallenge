@@ -33,6 +33,9 @@ public final class MainPaneView {
 	public MainPaneView(MainPaneViewModel viewModel) {
 		this.viewModel = viewModel;
 
+		Label seatsHeldLabel = new Label("Seats Held:");
+		Label seatsReservedLabel = new Label("Seats Reserved:");
+
 		ListView<SeatHold> seatsHeldListView = new ListView<SeatHold>(viewModel.getSeatsHeld());
 		ListView<SeatHold> seatsReservedListView = new ListView<SeatHold>(viewModel.getSeatsReserved());
 
@@ -82,16 +85,18 @@ public final class MainPaneView {
 
 		GridPane root = new GridPane();
 		GridPaneUtil.addColumnAndRowConstraints(root, new Priority[] { Priority.SOMETIMES, Priority.SOMETIMES },
-				new Priority[] { Priority.ALWAYS, Priority.NEVER, Priority.NEVER, Priority.NEVER });
+				new Priority[] { Priority.NEVER, Priority.ALWAYS, Priority.NEVER, Priority.NEVER, Priority.NEVER });
 		GridPane.setColumnSpan(outputPane, 2);
 		GridPane.setColumnSpan(inputPane, 2);
 		GridPane.setColumnSpan(buttonsPane, 2);
 
-		root.add(seatsHeldListView, 0, 0);
-		root.add(seatsReservedListView, 1, 0);
-		root.add(outputPane, 0, 1);
-		root.add(inputPane, 0, 2);
-		root.add(buttonsPane, 0, 3);
+		root.add(seatsHeldLabel, 0, 0);
+		root.add(seatsReservedLabel, 1, 0);
+		root.add(seatsHeldListView, 0, 1);
+		root.add(seatsReservedListView, 1, 1);
+		root.add(outputPane, 0, 2);
+		root.add(inputPane, 0, 3);
+		root.add(buttonsPane, 0, 4);
 
 		this.root = root;
 	}
