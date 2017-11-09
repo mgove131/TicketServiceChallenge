@@ -20,6 +20,7 @@ public class MainPaneViewTest {
 
 	@Test
 	public void test() throws IOException {
+		// gets view code coverage
 
 		MainPaneView view = new MainPaneView(new MainPaneViewModel());
 		view.getViewModel().close();
