@@ -1,7 +1,5 @@
 package main.java.ui;
 
-import java.util.List;
-
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.Scene;
@@ -39,11 +37,6 @@ public final class TicketServiceUI extends Application {
 		});
 		primaryStage.setScene(scene);
 		primaryStage.show();
-
-		List<String> paramsList = getParameters().getRaw();
-		if (paramsList.contains("close")) {
-			close();
-		}
 	}
 
 	/**
