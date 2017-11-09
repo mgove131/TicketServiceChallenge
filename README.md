@@ -8,7 +8,7 @@ See: [TicketService.java](src/main/java/services/TicketService.java)
 
 ## Instructions
 
-1. Open the command line and navigate to the root folder of the project.
+* Open the command line and navigate to the root folder of the project.
 
 ### Build and run tests
 
@@ -24,7 +24,7 @@ gradlew clean
 gradlew test
 ```
 
-### Run UI
+### Run UI - Gradle
 
 ```
 gradlew clean
@@ -32,6 +32,9 @@ gradlew build
 gradlew run
 ```
 
+### Run UI - Batch file
+
+* Run the file `RUNME.bat`
 
 ## Assumptions
 

@@ -1,0 +1,1 @@
+java -jar .\build\libs\TicketServiceUI-1.0.0.jar

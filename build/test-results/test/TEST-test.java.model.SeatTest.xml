@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="test.java.model.SeatTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2017-11-09T01:07:08" hostname="LAPTOP-7CDTL9J3" time="0.002">
+<testsuite name="test.java.model.SeatTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2017-11-09T01:14:28" hostname="LAPTOP-7CDTL9J3" time="0.003">
   <properties/>
   <testcase name="testToString" classname="test.java.model.SeatTest" time="0.001"/>
   <testcase name="testEqualsObject" classname="test.java.model.SeatTest" time="0.0"/>
