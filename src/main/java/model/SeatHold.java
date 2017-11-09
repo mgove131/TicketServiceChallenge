@@ -1,6 +1,7 @@
 package main.java.model;
 
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Calendar;
 
 public final class SeatHold {
@@ -81,8 +82,9 @@ public final class SeatHold {
 
 	@Override
 	public String toString() {
-		int numSeats = (seats != null) ? seats.length : 0;
 		return "SeatHold [id=" + id + ", email=" + email + ", expireDate="
-				+ new SimpleDateFormat("hh:mm:ss a").format(expireDate.getTime()) + ", seats=" + numSeats + "]";
+				+ new SimpleDateFormat("hh:mm:ss a").format(expireDate.getTime()) + ", seats=" + Arrays.toString(seats)
+				+ "]";
 	}
+
 }

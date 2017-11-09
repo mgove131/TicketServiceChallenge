@@ -2,14 +2,17 @@ package main.java.ui.view;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
+import main.java.model.SeatHold;
 import main.java.ui.util.GridPaneUtil;
 import main.java.ui.viewmodel.MainPaneViewModel;
 
@@ -29,6 +32,9 @@ public final class MainPaneView {
 	 */
 	public MainPaneView(MainPaneViewModel viewModel) {
 		this.viewModel = viewModel;
+
+		ListView<SeatHold> seatsHeldListView = new ListView<SeatHold>(viewModel.getSeatsHeld());
+		ListView<SeatHold> seatsReservedListView = new ListView<SeatHold>(viewModel.getSeatsReserved());
 
 		Label output = new Label();
 		output.textProperty().bind(this.viewModel.outputProperty());
@@ -63,19 +69,26 @@ public final class MainPaneView {
 			@Override
 			public void handle(ActionEvent event) {
 				if (viewModel != null) {
-					viewModel.holdSeats();
+					viewModel.reserveSeats();
 				}
 			}
 		});
 		HBox buttonsPane = new HBox(holdSeatsButton, reserveSeatsButton);
-
+		buttonsPane.setPadding(new Insets(5));
+		buttonsPane.setSpacing(5);
+		buttonsPane.setAlignment(Pos.CENTER);
 		HBox.setHgrow(holdSeatsButton, Priority.NEVER);
 		HBox.setHgrow(reserveSeatsButton, Priority.NEVER);
 
 		GridPane root = new GridPane();
-		GridPaneUtil.addColumnAndRowConstraints(root, new Priority[] { Priority.SOMETIMES },
+		GridPaneUtil.addColumnAndRowConstraints(root, new Priority[] { Priority.SOMETIMES, Priority.SOMETIMES },
 				new Priority[] { Priority.ALWAYS, Priority.NEVER, Priority.NEVER, Priority.NEVER });
+		GridPane.setColumnSpan(outputPane, 2);
+		GridPane.setColumnSpan(inputPane, 2);
+		GridPane.setColumnSpan(buttonsPane, 2);
 
+		root.add(seatsHeldListView, 0, 0);
+		root.add(seatsReservedListView, 1, 0);
 		root.add(outputPane, 0, 1);
 		root.add(inputPane, 0, 2);
 		root.add(buttonsPane, 0, 3);
@@ -90,6 +103,4 @@ public final class MainPaneView {
 	public Pane getRoot() {
 		return root;
 	}
-
-	private Label output;
 }

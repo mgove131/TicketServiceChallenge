@@ -1,7 +1,13 @@
 package main.java.ui.viewmodel;
 
+import java.io.Closeable;
+import java.io.IOException;
+import java.util.ArrayList;
+
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import main.java.logic.Ticketmaster;
 import main.java.model.SeatHold;
 
@@ -11,7 +17,7 @@ import main.java.model.SeatHold;
  * @author User
  *
  */
-public final class MainPaneViewModel {
+public final class MainPaneViewModel implements Closeable {
 
 	/**
 	 * Constructor.
@@ -21,6 +27,14 @@ public final class MainPaneViewModel {
 		this.output = new SimpleStringProperty();
 		this.seatsInput = new SimpleStringProperty();
 		this.emailInput = new SimpleStringProperty();
+		this.seatsHeld = FXCollections.observableArrayList(new ArrayList<SeatHold>());
+		this.seatsReserved = FXCollections.observableArrayList(new ArrayList<SeatHold>());
+	}
+
+	@Override
+	public void close() throws IOException {
+		this.ticketMaster.close();
+
 	}
 
 	private Ticketmaster ticketMaster;
@@ -67,11 +81,34 @@ public final class MainPaneViewModel {
 		return emailInput;
 	}
 
+	private ObservableList<SeatHold> seatsHeld;
+
+	public ObservableList<SeatHold> getSeatsHeld() {
+		return seatsHeld;
+	}
+
+	private ObservableList<SeatHold> seatsReserved;
+
+	public ObservableList<SeatHold> getSeatsReserved() {
+		return seatsReserved;
+	}
+
 	private SeatHold currentSeatHold;
+
+	private SeatHold getCurrentSeatHold() {
+		return currentSeatHold;
+	}
 
 	private void setCurrentSeatHold(SeatHold sh) {
 		currentSeatHold = sh;
 		setOutput(String.format("%s", currentSeatHold));
+	}
+
+	private void updateSeatInfo() {
+		seatsHeld.clear();
+		seatsHeld.addAll(ticketMaster.getSeatHolds());
+		seatsReserved.clear();
+		seatsReserved.addAll(ticketMaster.getSeatReservations());
 	}
 
 	/**
@@ -82,9 +119,10 @@ public final class MainPaneViewModel {
 			int numSeats = Integer.parseInt(getSeatsInput());
 			String customerEmail = getEmailInput();
 
+			int seatsAvailable = ticketMaster.numSeatsAvailable();
 			SeatHold sh = ticketMaster.findAndHoldSeats(numSeats, customerEmail);
 			if (sh == null) {
-				setOutput(String.format("Could not hold seats."));
+				setOutput(String.format("Could not hold seats. Seats Available: %s", seatsAvailable));
 			} else {
 				setCurrentSeatHold(sh);
 			}
@@ -92,5 +130,31 @@ public final class MainPaneViewModel {
 			setOutput(String.format("Cannot parse number of seats, expecting integer value: %s", getSeatsInput()));
 		}
 
+		updateSeatInfo();
+	}
+
+	/**
+	 * Call this to reserve the existing held seats.
+	 */
+	public void reserveSeats() {
+		SeatHold currentSeat = getCurrentSeatHold();
+
+		if (currentSeat == null) {
+			setOutput(String.format("Cannot reserve seats: No seats being held."));
+		} else if (!getEmailInput().equals(currentSeat.getEmail())) {
+			setOutput(String.format("Cannot reserve seats: Email does not match."));
+		} else {
+			int seatHoldId = currentSeat.getId();
+			String customerEmail = getEmailInput();
+			String confirmationCode = ticketMaster.reserveSeats(seatHoldId, customerEmail);
+
+			if (confirmationCode == null) {
+				setOutput(String.format("Could not reserve seats."));
+			} else {
+				setOutput(String.format("Confirmation code: %s", confirmationCode));
+			}
+		}
+
+		updateSeatInfo();
 	}
 }

@@ -1,5 +1,7 @@
 package main.java.ui;
 
+import java.io.IOException;
+
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.Scene;
@@ -16,12 +18,17 @@ import main.java.ui.viewmodel.MainPaneViewModel;
 public final class TicketServiceUI extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		MainPaneViewModel mainVM = new MainPaneViewModel();
-		MainPaneView mainV = new MainPaneView(mainVM);
+		final MainPaneViewModel mainVM = new MainPaneViewModel();
+		final MainPaneView mainV = new MainPaneView(mainVM);
 
 		Scene scene = new Scene(mainV.getRoot(), 600, 300);
 		primaryStage.setTitle("TicketServiceUI");
-		primaryStage.setOnCloseRequest(e -> {
+		primaryStage.setOnCloseRequest((e) -> {
+			try {
+				mainVM.close();
+			} catch (IOException e1) {
+			}
+
 			Platform.exit();
 			System.exit(0);
 		});

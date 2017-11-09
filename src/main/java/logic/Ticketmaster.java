@@ -10,6 +10,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.UUID;
 
 import main.java.model.Seat;
 import main.java.model.SeatHold;
@@ -78,7 +79,19 @@ public final class Ticketmaster implements Closeable {
 
 	private Map<Integer, SeatHold> holds;
 
+	public List<SeatHold> getSeatHolds() {
+		List<SeatHold> returnValue = new ArrayList<SeatHold>();
+		returnValue.addAll(holds.values());
+		return returnValue;
+	}
+
 	private List<SeatHold> reservations;
+
+	public List<SeatHold> getSeatReservations() {
+		List<SeatHold> returnValue = new ArrayList<SeatHold>();
+		returnValue.addAll(reservations);
+		return returnValue;
+	}
 
 	@Override
 	public void close() {
@@ -129,6 +142,10 @@ public final class Ticketmaster implements Closeable {
 	public SeatHold findAndHoldSeats(int numSeats, String customerEmail) {
 		// null is returned if there are not enough seats
 		SeatHold seathold = null;
+
+		if (customerEmail == null) {
+			customerEmail = "";
+		}
 
 		synchronized (lock) {
 			if ((numSeats > 0) && (numSeatsAvailable() >= numSeats)) {
@@ -216,14 +233,20 @@ public final class Ticketmaster implements Closeable {
 		// null is returned if there is no valid hold
 		String returnValue = null;
 
+		if (customerEmail == null) {
+			customerEmail = "";
+		}
+
 		synchronized (lock) {
 			if (holds.containsKey(seatHoldId)) {
 				SeatHold sh = holds.get(seatHoldId);
 
 				// also check email to make sure it is valid
-				if (sh.getEmail().equals(customerEmail)) {
+				if (customerEmail.equals(sh.getEmail())) {
 					holds.remove(seatHoldId);
 					reservations.add(sh);
+
+					returnValue = UUID.randomUUID().toString();
 				}
 			}
 		}
@@ -240,7 +263,7 @@ public final class Ticketmaster implements Closeable {
 	class ReservationCleaner implements Runnable {
 		@Override
 		public void run() {
-			while (isRunning) {
+			outerLoop: while (isRunning) {
 				synchronized (lock) {
 					Iterator<Entry<Integer, SeatHold>> it = holds.entrySet().iterator();
 					while (it.hasNext()) {
@@ -253,7 +276,12 @@ public final class Ticketmaster implements Closeable {
 				}
 
 				try {
-					Thread.sleep(250);
+					for (int i = 0; i < 4; i++) {
+						Thread.sleep(250);
+						if (!isRunning) {
+							break outerLoop;
+						}
+					}
 				} catch (InterruptedException e) {
 				}
 			}

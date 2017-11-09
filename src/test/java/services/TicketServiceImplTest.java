@@ -245,6 +245,8 @@ public final class TicketServiceImplTest {
 
 		int seatsToHold = 1;
 		holdSeats(service, seatsToHold);
+		holdSeats(service, seatsToHold);
+		holdSeats(service, seatsToHold);
 
 		Thread.sleep(2 * service.getTicketmaster().getHoldTimeoutSeconds() * 1000);
 
@@ -262,11 +264,12 @@ public final class TicketServiceImplTest {
 
 		int seatsToHold = service.getTicketmaster().getVenue().getColCount() - 1;
 		SeatHold sh = holdSeats(service, seatsToHold);
-		reserveSeats(service, sh.getId());
+		String confirmationCode = reserveSeats(service, sh.getId());
 
 		int expected = service.getTicketmaster().getVenue().getNumberOfSeats() - seatsToHold;
 		int actual = service.numSeatsAvailable();
 		Assert.assertEquals(expected, actual);
+		Assert.assertNotNull(confirmationCode);
 
 		Set<Seat> set = new HashSet<Seat>(Arrays.asList(sh.getSeats()));
 		Assert.assertEquals(sh.getSeats().length, set.size());
