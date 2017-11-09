@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="test.java.ui.viewmodel.MainPaneViewModelTest" tests="7" skipped="0" failures="0" errors="0" timestamp="2017-11-09T05:25:13" hostname="LAPTOP-7CDTL9J3" time="6.525">
+  <properties/>
+  <testcase name="testReserveSeatsNoHold" classname="test.java.ui.viewmodel.MainPaneViewModelTest" time="0.001"/>
+  <testcase name="testReserveSeats" classname="test.java.ui.viewmodel.MainPaneViewModelTest" time="0.251"/>
+  <testcase name="testReserveSeatsExpiredHold" classname="test.java.ui.viewmodel.MainPaneViewModelTest" time="6.013"/>
+  <testcase name="testReserveSeatsWrongEmail" classname="test.java.ui.viewmodel.MainPaneViewModelTest" time="0.005"/>
+  <testcase name="testHoldSeatsInvalid" classname="test.java.ui.viewmodel.MainPaneViewModelTest" time="0.0"/>
+  <testcase name="testHoldSeatsTooManySeats" classname="test.java.ui.viewmodel.MainPaneViewModelTest" time="0.001"/>
+  <testcase name="testHoldSeats" classname="test.java.ui.viewmodel.MainPaneViewModelTest" time="0.251"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
